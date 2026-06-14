@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>ctOS</title>
+    <style>
+        body{background:#0a0a0a;color:#00ff41;font-family:monospace;margin:0;padding:15px;height:100vh;display:flex;flex-direction:column}
+        button{background:#0a2a0a;color:#00ff41;border:1px solid #00ff41;padding:15px;margin:5px;font-family:monospace;font-size:14px;width:100%}
+        button:active{background:#00ff41;color:#000}
+        .out{background:#000a00;border:1px solid #00ff41;padding:10px;flex-grow:1;overflow:auto;font-size:11px;margin-top:10px;white-space:pre-wrap}
+        .red{color:red}.y{color:#ff0}
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;text-shadow:0 0 10px #00ff41">ctOS</h1>
+    <p style="text-align:center;font-size:10px">MOBILE v2.0</p>
+    <button onclick="scan()">📡 СКАНЕР СЕТИ</button>
+    <button onclick="cams()">👁 КАМЕРЫ</button>
+    <button onclick="prof()">👤 ПРОФИЛИ</button>
+    <button onclick="black()" style="color:#ff0040;border-color:#ff0040">⚡ BLACKOUT</button>
+    <div class="out" id="out">> ctOS ядро загружено.
+> Выберите модуль...</div>
+    <script>
+        function log(t,c){document.getElementById('out').innerHTML+='\n'+(c?'<span class="'+c+'">':'')+t+(c?'</span>':'')}
+        function scan(){log('📡 Сканирование сети...','y');var d=[{ip:'192.168.1.1',t:'Роутер',v:'КРИТИЧЕСКАЯ'},{ip:'10.0.0.15',t:'IP-камера',v:'ВЫСОКАЯ'},{ip:'172.16.0.100',t:'Сервер',v:'КРИТИЧЕСКАЯ'},{ip:'10.10.10.1',t:'Светофор',v:'КРИТИЧЕСКАЯ'},{ip:'192.168.2.200',t:'ПЛК',v:'КРИТИЧЕСКАЯ'}];d.forEach(function(x,i){setTimeout(function(){log('[+] '+x.ip+' - '+x.t+' - '+x.v,x.v==='КРИТИЧЕСКАЯ'?'red':'y')},i*700)});setTimeout(function(){log('✔ Сканирование завершено.')},4000)}
+        function cams(){log('👁 Поиск камер...','y');var c=[{city:'Москва',ip:'91.203.114.115:8080'},{city:'СПб',ip:'178.70.163.173:8080'},{city:'Казань',ip:'89.189.191.31:8082'}];c.forEach(function(x,i){setTimeout(function(){log('📍 '+x.city+': '+x.ip+' 🟢')},i*500)})}
+        function prof(){var u=prompt('Введите имя:');if(!u)return;log('👤 Поиск: '+u,'y');var p=['vk.com','t.me','github.com','instagram.com','twitter.com'];setTimeout(function(){log('✔ Найдено:');p.forEach(function(x,i){setTimeout(function(){log('🔗 '+x+'/'+u)},i*300)})},1500)}
+        function black(){log('⚡ BLACKOUT...','red');setTimeout(function(){log('Обход SCADA...','y')},1000);setTimeout(function(){log('⚡⚡⚡ РАЙОН ОБЕСТОЧЕН! ⚡⚡⚡','red')},2500)}
+    </script>
+</body>
+</html>
